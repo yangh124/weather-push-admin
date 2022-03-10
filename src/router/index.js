@@ -58,15 +58,15 @@ export const constantRoutes = [
   {
     path: '/example',
     component: Layout,
-    redirect: '/example/table',
-    name: '一级菜单',
-    meta: { title: '一级菜单', icon: 'el-icon-s-help' },
+    redirect: '/example/tag',
+    name: '系统设置',
+    meta: { title: '系统设置', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: '表格',
-        component: () => import('@/views/table/index'),
-        meta: { title: '表格', icon: 'table' }
+        path: 'tag',
+        name: '地区管理',
+        component: () => import('@/views/tag/index'),
+        meta: { title: '地区管理', icon: 'table' }
       },
       {
         path: 'tree',
