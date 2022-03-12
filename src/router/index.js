@@ -138,9 +138,9 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/sys',
     component: Layout,
-    redirect: '/example/tag',
+    redirect: '/sys/tag',
     name: '系统设置',
     meta: { title: '系统设置', icon: 'el-icon-s-help' },
     children: [
@@ -170,7 +170,8 @@ export const constantRoutes = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
+  base: '/admin/',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
