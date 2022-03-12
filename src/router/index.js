@@ -142,13 +142,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/sys/tag',
     name: '系统设置',
-    meta: { title: '系统设置', icon: 'el-icon-s-help' },
+    meta: { title: '系统设置', icon: 'el-icon-setting' },
     children: [
       {
         path: 'tag',
         name: '地区管理',
         component: () => import('@/views/tag/index'),
-        meta: { title: '地区管理', icon: 'table' }
+        meta: { title: '地区管理', icon: 'el-icon-location-information' }
       },
       {
         path: 'tree',
