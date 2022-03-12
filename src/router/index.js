@@ -54,29 +54,6 @@ export const constantRoutes = [
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/tag',
-    name: '系统设置',
-    meta: { title: '系统设置', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'tag',
-        name: '地区管理',
-        component: () => import('@/views/tag/index'),
-        meta: { title: '地区管理', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: '树',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '树', icon: 'tree' }
-      }
-    ]
-  },
-
   {
     path: '/form',
     component: Layout,
@@ -156,6 +133,34 @@ export const constantRoutes = [
       {
         path: 'https://github.com/yangh124/weather-push-admin',
         meta: { title: '外链', icon: 'link' }
+      }
+    ]
+  },
+
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/tag',
+    name: '系统设置',
+    meta: { title: '系统设置', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'tag',
+        name: '地区管理',
+        component: () => import('@/views/tag/index'),
+        meta: { title: '地区管理', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: '树',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '树', icon: 'tree' }
+      },
+      {
+        path: 'member',
+        name: '成员管理',
+        component: () => import('@/views/member/index'),
+        meta: { title: '成员管理', icon: 'user' }
       }
     ]
   },
