@@ -15,6 +15,8 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
+const Timestamp = new Date().getTime()
+
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   /**
@@ -39,8 +41,8 @@ module.exports = {
     // 以上的ip和端口是我们本机的;下面为需要跨域的
     proxy: { // 配置跨域
       '/api': {
-      //  target: 'http://192.168.3.3:8080', // 这里后台的地址模拟的;应该填写你们真实的后台接口
-        target: 'http://127.0.0.1:8080',
+        target: 'http://192.168.3.3:8080', // 这里后台的地址模拟的;应该填写你们真实的后台接口
+        //  target: 'http://127.0.0.1:8080',
         ws: true,
         changOrigin: true, // 允许跨域
         pathRewrite: {
@@ -53,6 +55,10 @@ module.exports = {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
     name: name,
+    output: { // 输出重构  打包编译后的 文件名称  【模块名称.版本号.时间戳】
+      filename: `static/js/[name].${process.env.NODE_ENV}.${Timestamp}.js`,
+      chunkFilename: `static/js/[name].${process.env.NODE_ENV}.${Timestamp}.js`
+    },
     resolve: {
       alias: {
         '@': resolve('src')
