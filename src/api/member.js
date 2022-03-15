@@ -6,3 +6,10 @@ export function getJoinQrCode() {
     method: 'get'
   })
 }
+
+export function memberList() {
+  return request({
+    url: '/members',
+    method: 'get'
+  })
+}
