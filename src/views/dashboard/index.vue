@@ -1,30 +1,58 @@
 <template>
-  <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
-  </div>
+  <el-calendar v-model="value" :first-day-of-week="7">
+    <template
+      slot="dateCell"
+      slot-scope="{date, data}"
+    >
+      <p :class="holidays.indexOf(data.day)!==-1 ? 'is-holiday' : ''">
+        {{ data.day.split('-')[2] }} {{ holidays.indexOf(data.day) > -1 ? holidayMap[data.day].name : '' }}
+      </p>
+    </template>
+  </el-calendar>
 </template>
-
 <script>
-import { mapGetters } from 'vuex'
+
+import { getAllHolidays } from '@/api/holiday'
 
 export default {
-  name: 'Dashboard',
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
+  data() {
+    return {
+      value: new Date(),
+      holidays: [],
+      holidayMap: {}
+    }
+  },
+  created() {
+    this.getAllHolidays()
+    console.log(this.holidays)
+    console.log(this.holidayMap)
+  },
+  methods: {
+    getAllHolidays() {
+      getAllHolidays().then(res => {
+        const list = res.data
+        if (list != null && list.length > 0) {
+          for (const holiday of list) {
+            const date = holiday.holidayDate
+            let name = holiday.holidayName
+            const isOffDay = holiday.isOffDay
+            name = name + '假期'
+            if (!isOffDay) {
+              name = '上班(补' + name + ')'
+            }
+            this.holidays.push(date)
+            this.holidayMap[date] = { name: name, isOffDay: isOffDay }
+          }
+        }
+      })
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
+  .is-holiday {
+    color: white;
+    background: green;
   }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
 </style>
