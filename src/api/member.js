@@ -7,9 +7,10 @@ export function getJoinQrCode() {
   })
 }
 
-export function memberList() {
+export function memberList(params) {
   return request({
     url: '/members',
-    method: 'get'
+    method: 'get',
+    params
   })
 }

@@ -145,22 +145,16 @@ export const constantRoutes = [
     meta: { title: '系统设置', icon: 'el-icon-setting' },
     children: [
       {
-        path: 'tag',
-        name: '地区管理',
-        component: () => import('@/views/tag/index'),
-        meta: { title: '地区管理', icon: 'el-icon-location-information' }
-      },
-      {
-        path: 'tree',
-        name: '树',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '树', icon: 'tree' }
-      },
-      {
         path: 'member',
         name: '成员管理',
         component: () => import('@/views/member/index'),
         meta: { title: '成员管理', icon: 'user' }
+      },
+      {
+        path: 'tag',
+        name: '地区管理',
+        component: () => import('@/views/tag/index'),
+        meta: { title: '地区管理', icon: 'el-icon-location-information' }
       }
     ]
   },

@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { getList, delTag } from '@/api/tag'
+import { getPage, delTag } from '@/api/tag'
 export default {
   data() {
     return {
@@ -78,7 +78,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getList({ currentPage: this.currentPage, pageSize: this.pageSize }).then(response => {
+      getPage({ currentPage: this.currentPage, pageSize: this.pageSize }).then(response => {
         const data = response.data
         this.list = data.records
         this.currentPage = data.current
