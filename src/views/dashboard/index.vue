@@ -5,7 +5,7 @@
       slot-scope="{date, data}"
     >
       <p :class="holidays.indexOf(data.day)!==-1 ? 'is-holiday' : ''">
-        {{ data.day.split('-')[2] }} {{ holidays.indexOf(data.day) > -1 ? holidayMap[data.day].name : '' }}
+        {{ data.day.split('-')[2]+'日' }} <br> {{ holidays.indexOf(data.day) > -1 ? holidayMap[data.day].name : '' }}
       </p>
     </template>
   </el-calendar>
