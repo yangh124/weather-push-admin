@@ -4,7 +4,7 @@
       slot="dateCell"
       slot-scope="{date, data}"
     >
-      <p :class="holidays.indexOf(data.day)!==-1 ? 'is-holiday' : ''">
+      <p :class="getClass(data.day)">
         {{ data.day.split('-')[2]+'日' }} <br> {{ holidays.indexOf(data.day) > -1 ? holidayMap[data.day].name : '' }}
       </p>
     </template>
@@ -43,6 +43,17 @@ export default {
           }
         }
       })
+    },
+    getClass(day) {
+      const flag = this.holidays.indexOf(day) !== -1
+      if (flag) {
+        const isOffDay = this.holidayMap[day].isOffDay
+        if (isOffDay) {
+          return 'is-holiday'
+        } else {
+          return 'is-work'
+        }
+      }
     }
   }
 }
@@ -52,5 +63,9 @@ export default {
   .is-holiday {
     color: white;
     background: green;
+  }
+  .is-work {
+    color: black;
+    background: #fad133;
   }
 </style>
