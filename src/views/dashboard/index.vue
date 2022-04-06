@@ -24,8 +24,6 @@ export default {
   },
   created() {
     this.getAllHolidays()
-    console.log(this.holidays)
-    console.log(this.holidayMap)
   },
   methods: {
     getAllHolidays() {

@@ -8,6 +8,14 @@ export function getPage(params) {
   })
 }
 
+export function addTag(data) {
+  return request({
+    url: '/tags',
+    method: 'post',
+    data
+  })
+}
+
 export function delTag(id) {
   return request({
     url: '/tags/' + id,

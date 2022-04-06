@@ -6,7 +6,7 @@
     <el-container>
       <el-header>
         <div>
-          <el-button type="primary" style="margin-left:20px" @click="qrCode()">生成二维码</el-button>
+          <el-button type="primary" style="margin-top:20px;margin-left:20px" @click="qrCode()">生成二维码</el-button>
           <el-dialog title="使用微信扫码加入" :visible.sync="dialogVisible" width="300px">
             <el-image
               style="width: 200px; height: 200px"
