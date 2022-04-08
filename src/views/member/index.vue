@@ -6,13 +6,14 @@
     <el-container>
       <el-header>
         <div>
-          <el-button type="primary" style="margin-top:20px;margin-left:20px" @click="qrCode()">生成二维码</el-button>
+          <el-button size="small" type="primary" style="margin-top:20px;margin-left:20px" @click="qrCode()">生成二维码</el-button>
           <el-dialog title="使用微信扫码加入" :visible.sync="dialogVisible" width="300px">
             <el-image
               style="width: 200px; height: 200px"
               :src="url"
             />
           </el-dialog>
+          <el-button size="small" type="primary" plain icon="el-icon-document-add" style="float:right;margin-top:20px;margin-right:20px" :loading="addLoading" @click="addMember">添加</el-button>
         </div>
       </el-header>
       <el-main>
@@ -51,6 +52,23 @@
         </el-table>
       </el-main>
     </el-container>
+    <el-dialog title="关联成员" :visible.sync="dialogFormVisible">
+      <el-select v-model="userid" placeholder="请选择" style="width: 400px">
+        <el-option
+          v-for="item in members"
+          :key="item.userId"
+          :label="item.name"
+          :value="item.userid"
+        >
+          <span style="float: left">{{ item.name }}</span>
+          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.userid }}</span>
+        </el-option>
+      </el-select>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addCancel">取 消</el-button>
+        <el-button type="primary" @click="addConfirm">确 定</el-button>
+      </div>
+    </el-dialog>
   </el-container>
 </template>
 <script>
@@ -64,16 +82,14 @@ export default {
       url: '',
       list: null,
       listLoading: true,
-      data: [{
-        id: 1,
-        label: 'Level one 1'
-      }, {
-        id: 2,
-        label: 'Level one 2'
-      }, {
-        id: 3,
-        label: 'Level one 3'
-      }]
+      data: [],
+      addLoading: false,
+      form: {
+        tagName: ''
+      },
+      dialogFormVisible: false,
+      members: [],
+      userid: ''
     }
   },
   created() {
@@ -113,6 +129,30 @@ export default {
     },
     setCheckedKeys(id) {
       this.$refs.tree.setCheckedKeys([id])
+    },
+    addMember() {
+      memberList().then(res => {
+        const data = res.data
+        this.members = data
+        console.log(data)
+        this.dialogFormVisible = true
+      })
+    },
+    addCancel() {
+      this.form.tagName = ''
+      this.dialogFormVisible = false
+    },
+    addConfirm() {
+      this.addLoading = true
+      // relMember(this.form).then(res => {
+      //   this.$message({
+      //     type: 'success',
+      //     message: res.message
+      //   })
+      //   this.addLoading = true
+      //   this.dialogFormVisible = false
+      //   this.reset()
+      // })
     }
   }
 }
