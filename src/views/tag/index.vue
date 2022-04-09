@@ -48,10 +48,6 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="handleEdit(scope.row.id)"
-            >编辑</el-button>
-            <el-button
-              size="mini"
               type="danger"
               @click="handleDelete(scope.row.id)"
             >删除</el-button>
