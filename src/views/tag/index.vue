@@ -26,7 +26,7 @@
       >
         <el-table-column align="center" label="地区ID" width="100">
           <template slot-scope="scope">
-            {{ scope.row.tagId }}
+            {{ scope.row.id }}
           </template>
         </el-table-column>
         <el-table-column label="地区名称" width="200" align="center">
@@ -166,6 +166,7 @@ export default {
       this.fetchData()
     },
     reset() {
+      this.tagName = ''
       this.fetchData()
     },
     addCancel() {

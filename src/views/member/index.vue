@@ -40,10 +40,6 @@
             <template slot-scope="scope">
               <el-button
                 size="mini"
-                @click="handleEdit(scope.row.id)"
-              >编辑</el-button>
-              <el-button
-                size="mini"
                 type="danger"
                 @click="handleDelete(scope.row.id)"
               >删除</el-button>
@@ -73,7 +69,7 @@
 </template>
 <script>
 import { getJoinQrCode, memberList } from '@/api/member'
-import { getAll } from '@/api/tag'
+import { getAll, addTagMembers, delTagMembers } from '@/api/tag'
 
 export default {
   data() {
@@ -89,7 +85,8 @@ export default {
       },
       dialogFormVisible: false,
       members: [],
-      userid: ''
+      userid: '',
+      tagid: ''
     }
   },
   created() {
@@ -114,9 +111,10 @@ export default {
         }
       })
     },
-    memberList(id) {
+    memberList() {
       this.listLoading = true
-      memberList({ id: id }).then(res => {
+      console.log(this.tagid)
+      memberList({ id: this.tagid }).then(res => {
         const data = res.data
         this.list = data
         this.listLoading = false
@@ -125,34 +123,34 @@ export default {
     handleNodeClick(data) {
       const id = data.id
       this.setCheckedKeys([id])
-      this.memberList(id)
+      this.memberList()
     },
     setCheckedKeys(id) {
-      this.$refs.tree.setCheckedKeys([id])
+      this.$refs.tree.setCheckedKeys(id)
+      this.tagid = id[0]
     },
     addMember() {
       memberList().then(res => {
         const data = res.data
         this.members = data
-        console.log(data)
         this.dialogFormVisible = true
       })
     },
     addCancel() {
-      this.form.tagName = ''
+      this.userid = ''
       this.dialogFormVisible = false
     },
     addConfirm() {
       this.addLoading = true
-      // relMember(this.form).then(res => {
-      //   this.$message({
-      //     type: 'success',
-      //     message: res.message
-      //   })
-      //   this.addLoading = true
-      //   this.dialogFormVisible = false
-      //   this.reset()
-      // })
+      const data = { 'tagid': this.tagid, 'userlist': [this.userid] }
+      addTagMembers(data).then(res => {
+        this.$message({
+          type: 'success',
+          message: res.message
+        })
+        this.addLoading = false
+        this.dialogFormVisible = false
+      })
     }
   }
 }

@@ -29,3 +29,19 @@ export function getAll() {
     method: 'get'
   })
 }
+
+export function addTagMembers(data) {
+  return request({
+    url: '/tags/members',
+    method: 'post',
+    data
+  })
+}
+
+export function delTagMembers(data) {
+  return request({
+    url: '/tags/members',
+    method: 'delete',
+    data
+  })
+}
