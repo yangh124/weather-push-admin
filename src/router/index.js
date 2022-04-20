@@ -155,6 +155,12 @@ export const constantRoutes = [
         name: '地区管理',
         component: () => import('@/views/tag/index'),
         meta: { title: '地区管理', icon: 'el-icon-location-information' }
+      },
+      {
+        path: 'task',
+        name: '任务管理',
+        component: () => import('@/views/task/index'),
+        meta: { title: '任务管理', icon: 'el-icon-message-solid' }
       }
     ]
   },
