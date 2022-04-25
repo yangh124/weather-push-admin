@@ -105,7 +105,7 @@ export default {
         this.data = []
         if (dataList != null && dataList.length > 0) {
           for (const data of dataList) {
-            this.data.push({ id: data.id, label: data.tagName })
+            this.data.push({ id: data.tagId, label: data.tagName })
           }
           this.handleNodeClick(dataList[0])
         }

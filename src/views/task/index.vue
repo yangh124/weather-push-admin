@@ -29,12 +29,12 @@
             {{ scope.row.id }}
           </template>
         </el-table-column>
-        <el-table-column label="任务名称" width="200" align="center">
+        <el-table-column label="任务名称" width="150" align="center">
           <template slot-scope="scope">
             {{ scope.row.taskName }}
           </template>
         </el-table-column>
-        <el-table-column label="cron表达式" width="150" align="center">
+        <el-table-column label="cron表达式" width="100" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.cronExp }}</span>
           </template>
@@ -42,6 +42,18 @@
         <el-table-column label="任务描述" width="250" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.taskDesc }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="地区" width="250" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              v-for="tag in scope.row.tagList"
+              :key="tag.id"
+              size="mini"
+              effect="dark"
+            >
+              {{ tag.tagName }}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column label="创建时间" align="center">
@@ -56,10 +68,10 @@
         </el-table-column>
         <el-table-column label="状态" align="center">
           <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.status === 0 ? 'success' : 'danger'"
-              disable-transitions
-            >{{ scope.row.status=== 0 ? '正常' : '停止' }}</el-tag>
+            <el-switch
+              :value="scope.row.status === 0"
+              active-color="#13ce66"
+            />
           </template>
         </el-table-column>
         <el-table-column label="操作" width="200" align="center">
@@ -94,12 +106,22 @@
       />
     </el-footer>
 
-    <el-dialog title="添加任务" :visible.sync="dialogFormVisible">
+    <el-dialog title="添加任务" :visible.sync="dialogFormVisible" @open="dialogOpen">
       <el-form :model="form">
         <el-form-item label="任务名称">
           <el-select v-model="form.taskName" placeholder="请选择任务">
             <el-option label="今日天气" value="weatherTodayJob" />
             <el-option label="明日天气" value="weatherTomorrowJob" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="地区名称">
+          <el-select v-model="form.tagIds" multiple placeholder="请选择">
+            <el-option
+              v-for="item in tags"
+              :key="item.id"
+              :label="item.tagName"
+              :value="item.id"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="cron表达式">
@@ -119,6 +141,7 @@
 
 <script>
 import { getPage, delTask, addTask, updateTask } from '@/api/task'
+import { getAll } from '@/api/tag'
 export default {
   data() {
     return {
@@ -135,9 +158,11 @@ export default {
       form: {
         taskName: '',
         cronExp: '',
-        taskDesc: ''
+        taskDesc: '',
+        tagIds: []
       },
-      dialogFormVisible: false
+      dialogFormVisible: false,
+      tags: []
     }
   },
   created() {
@@ -231,7 +256,8 @@ export default {
       this.form = {
         taskName: '',
         cronExp: '',
-        taskDesc: ''
+        taskDesc: '',
+        tagIds: []
       }
       this.addLoading = false
       this.dialogFormVisible = false
@@ -251,6 +277,11 @@ export default {
           taskDesc: ''
         }
         this.reset()
+      })
+    },
+    dialogOpen() {
+      getAll().then(res => {
+        this.tags = res.data
       })
     }
   }
