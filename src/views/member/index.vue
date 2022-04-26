@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="200px" style="margin-top:80px">
-      <el-tree ref="tree" :data="data" node-key="id" show-checkbox empty-text="无数据" @check="handleNodeClick" @node-click="handleNodeClick" />
+      <el-tree ref="tree" :data="data" node-key="tagId" show-checkbox empty-text="无数据" @check="handleNodeClick" @node-click="handleNodeClick" />
     </el-aside>
     <el-container>
       <el-header>
@@ -105,7 +105,7 @@ export default {
         this.data = []
         if (dataList != null && dataList.length > 0) {
           for (const data of dataList) {
-            this.data.push({ id: data.tagId, label: data.tagName })
+            this.data.push({ tagId: data.tagId, label: data.tagName })
           }
           this.handleNodeClick(dataList[0])
         }
@@ -113,7 +113,6 @@ export default {
     },
     memberList() {
       this.listLoading = true
-      console.log(this.tagid)
       memberList({ id: this.tagid }).then(res => {
         const data = res.data
         this.list = data
@@ -121,13 +120,13 @@ export default {
       })
     },
     handleNodeClick(data) {
-      const id = data.id
-      this.setCheckedKeys([id])
+      const tagId = data.tagId
+      this.setCheckedKeys([tagId])
       this.memberList()
     },
-    setCheckedKeys(id) {
-      this.$refs.tree.setCheckedKeys(id)
-      this.tagid = id[0]
+    setCheckedKeys(tagId) {
+      this.$refs.tree.setCheckedKeys(tagId)
+      this.tagid = tagId[0]
     },
     addMember() {
       memberList().then(res => {

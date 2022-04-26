@@ -24,12 +24,12 @@
         fit
         highlight-current-row
       >
-        <el-table-column align="center" label="任务ID" width="200">
+        <el-table-column align="center" label="任务ID" width="180">
           <template slot-scope="scope">
             {{ scope.row.id }}
           </template>
         </el-table-column>
-        <el-table-column label="任务名称" width="150" align="center">
+        <el-table-column label="任务名称" width="180" align="center">
           <template slot-scope="scope">
             {{ scope.row.taskName }}
           </template>
@@ -39,12 +39,12 @@
             <span>{{ scope.row.cronExp }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="任务描述" width="250" align="center">
+        <el-table-column label="任务描述" width="200" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.taskDesc }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="地区" width="250" align="center">
+        <el-table-column label="地区" width="200" align="center">
           <template slot-scope="scope">
             <el-tag
               v-for="tag in scope.row.tagList"

@@ -24,12 +24,12 @@
         fit
         highlight-current-row
       >
-        <el-table-column align="center" label="地区ID" width="100">
+        <el-table-column align="center" label="地区ID" width="180">
           <template slot-scope="scope">
             {{ scope.row.id }}
           </template>
         </el-table-column>
-        <el-table-column label="地区名称" width="200" align="center">
+        <el-table-column label="地区名称" width="150" align="center">
           <template slot-scope="scope">
             {{ scope.row.tagName }}
           </template>
