@@ -79,8 +79,8 @@
             <el-button
               size="mini"
               type="primary"
-              @click="handleUpdateStatus(scope.row.id,scope.row.status)"
-            >启动/停止</el-button>
+              @click="handleEdit(scope.row)"
+            >编辑</el-button>
             <el-button
               size="mini"
               type="danger"
@@ -136,6 +136,38 @@
         <el-button type="primary" @click="addConfirm">确 定</el-button>
       </div>
     </el-dialog>
+
+    <el-dialog title="编辑任务" :visible.sync="dialogEditVisible">
+      <el-form :model="editForm">
+        <el-form-item label="状态">
+          <el-select v-model="editForm.status">
+            <el-option label="启动" :value="0" />
+            <el-option label="停止" :value="1" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="地区名称">
+          <el-select v-model="editForm.tagIds" multiple placeholder="请选择">
+            <el-option
+              v-for="item in tags"
+              :key="item.id"
+              :label="item.tagName"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="cron表达式">
+          <el-input v-model="editForm.cronExp" />
+        </el-form-item>
+        <el-form-item label="任务描述">
+          <el-input v-model="editForm.taskDesc" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editCancel">取 消</el-button>
+        <el-button type="primary" @click="editConfirm">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </el-container>
 </template>
 
@@ -162,7 +194,15 @@ export default {
         tagIds: []
       },
       dialogFormVisible: false,
-      tags: []
+      tags: [],
+      dialogEditVisible: false,
+      editForm: {
+        id: '',
+        status: '',
+        cronExp: '',
+        taskDesc: '',
+        tagIds: []
+      }
     }
   },
   created() {
@@ -214,37 +254,6 @@ export default {
         })
       })
     },
-    handleUpdateStatus(id, status) {
-      let msg = ''
-      let updStatus = 0
-      if (status === 0) {
-        msg = '停止'
-        updStatus = 1
-      } else {
-        msg = '启动'
-      }
-      this.$confirm('此操作将' + msg + '该任务, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        updateTask(id, { 'status': updStatus }).then(res => {
-          this.$message({
-            type: 'success',
-            message: res.message
-          })
-          this.fetchData()
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-    },
-    handleEdit(id) {
-      console.log(id)
-    },
     search() {
       this.fetchData()
     },
@@ -282,6 +291,53 @@ export default {
     dialogOpen() {
       getAll().then(res => {
         this.tags = res.data
+      })
+      this.dialogEditVisible = true
+    },
+    editCancel() {
+      this.editForm = {
+        id: '',
+        status: '',
+        cronExp: '',
+        taskDesc: '',
+        tagIds: []
+      }
+      this.dialogEditVisible = false
+    },
+    handleEdit(data) {
+      getAll().then(res => {
+        this.tags = res.data
+      })
+      const tagIds = []
+      for (const tag of data.tagList) {
+        tagIds.push(tag.id)
+      }
+      this.editForm = {
+        id: data.id,
+        status: data.status,
+        cronExp: data.cronExp,
+        taskDesc: data.taskDesc,
+        tagIds: tagIds
+      }
+      this.dialogEditVisible = true
+    },
+    editConfirm() {
+      const data = this.editForm
+      updateTask(data.id, data).then(res => {
+        this.$message({
+          type: 'success',
+          message: res.message
+        })
+        this.editLoading = false
+        this.dialogEditVisible = false
+        this.editForm = {
+          id: '',
+          status: '',
+          cronExp: '',
+          taskDesc: '',
+          tagIds: []
+        }
+        this.reset()
       })
     }
   }
