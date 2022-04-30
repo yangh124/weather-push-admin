@@ -36,7 +36,6 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
@@ -55,114 +54,49 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/form',
+    path: '/tag',
     component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form表单',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form表单', icon: 'form' }
-      }
-    ]
+    redirect: '/tag',
+    children: [{
+      path: 'tag',
+      name: '地区管理',
+      component: () => import('@/views/tag/index'),
+      meta: { title: '地区管理', icon: 'el-icon-location-information' }
+    }]
   },
-
   {
-    path: '/nested',
+    path: '/member',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: '嵌套',
-    meta: {
-      title: '嵌套',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
+    redirect: '/member',
+    children: [{
+      path: 'member',
+      name: '成员管理',
+      component: () => import('@/views/member/index'),
+      meta: { title: '成员管理', icon: 'user' }
+    }]
   },
-
   {
-    path: 'external-link',
+    path: '/task',
     component: Layout,
-    children: [
-      {
-        path: 'https://github.com/yangh124/weather-push-admin',
-        meta: { title: '外链', icon: 'link' }
-      }
-    ]
-  },
+    redirect: '/task',
+    children: [{
+      path: 'task',
+      name: '任务管理',
+      component: () => import('@/views/task/index'),
+      meta: { title: '任务管理', icon: 'el-icon-message-solid' }
+    }]
 
+  },
   {
     path: '/sys',
     component: Layout,
-    redirect: '/sys/tag',
-    name: '系统设置',
-    meta: { title: '系统设置', icon: 'el-icon-setting' },
-    children: [
-      {
-        path: 'member',
-        name: '成员管理',
-        component: () => import('@/views/member/index'),
-        meta: { title: '成员管理', icon: 'user' }
-      },
-      {
-        path: 'tag',
-        name: '地区管理',
-        component: () => import('@/views/tag/index'),
-        meta: { title: '地区管理', icon: 'el-icon-location-information' }
-      },
-      {
-        path: 'task',
-        name: '任务管理',
-        component: () => import('@/views/task/index'),
-        meta: { title: '任务管理', icon: 'el-icon-message-solid' }
-      }
-    ]
+    redirect: '/sys',
+    children: [{
+      path: 'sys',
+      name: '系统设置',
+      component: () => import('@/views/sys/index'),
+      meta: { title: '系统设置', icon: 'el-icon-s-tools' }
+    }]
   },
 
   // 404 page must be placed at the end !!!

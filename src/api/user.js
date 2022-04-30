@@ -21,3 +21,11 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function updatePassword(data) {
+  return request({
+    url: '/admin/updPwd',
+    method: 'post',
+    data
+  })
+}
