@@ -54,6 +54,17 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/task',
+    component: Layout,
+    redirect: '/task',
+    children: [{
+      path: 'task',
+      name: '任务管理',
+      component: () => import('@/views/task/index'),
+      meta: { title: '任务管理', icon: 'el-icon-message-solid' }
+    }]
+  },
+  {
     path: '/tag',
     component: Layout,
     redirect: '/tag',
@@ -74,18 +85,6 @@ export const constantRoutes = [
       component: () => import('@/views/member/index'),
       meta: { title: '成员管理', icon: 'user' }
     }]
-  },
-  {
-    path: '/task',
-    component: Layout,
-    redirect: '/task',
-    children: [{
-      path: 'task',
-      name: '任务管理',
-      component: () => import('@/views/task/index'),
-      meta: { title: '任务管理', icon: 'el-icon-message-solid' }
-    }]
-
   },
   {
     path: '/sys',
