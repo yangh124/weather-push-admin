@@ -163,6 +163,7 @@ export default {
     },
     reset() {
       this.tagName = ''
+      this.form.tagName = ''
       this.fetchData()
     },
     addCancel() {
@@ -176,7 +177,7 @@ export default {
           type: 'success',
           message: res.message
         })
-        this.addLoading = true
+        this.addLoading = false
         this.dialogFormVisible = false
         this.reset()
       })

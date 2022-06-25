@@ -292,7 +292,6 @@ export default {
       getAll().then(res => {
         this.tags = res.data
       })
-      this.dialogEditVisible = true
     },
     editCancel() {
       this.editForm = {
