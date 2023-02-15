@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "weather-push-admin",
   "author": "yh.124@qq.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yangh124/weather-push-admin.git"
+  },
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
