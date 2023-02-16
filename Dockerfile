@@ -1,8 +1,8 @@
-# 设置基础镜像
 FROM nginx
-# 定义作者
-LABEL author="yh.124@qq.com"
-# 将dist文件中的内容复制到 /usr/share/nginx/html/ 这个目录下面
+LABEL maintainer="yh.124@qq.com"
 COPY dist/  /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
 EXPOSE 80
 ENTRYPOINT nginx -g "daemon off;"
