@@ -1,16 +1,15 @@
-import request from '@/utils/request'
+import request from '@/utils/request';
 
 export function getJoinQrCode() {
   return request({
     url: '/members/qr_code',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
 
-export function memberList(params) {
+export function agentConfig() {
   return request({
-    url: '/members',
+    url: '/members/agentConfig',
     method: 'get',
-    params
-  })
+  });
 }
