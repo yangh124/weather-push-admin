@@ -171,11 +171,7 @@ export default {
       this.tagid = tagId[0];
     },
     addMember() {
-      memberList().then((res) => {
-        const data = res.data;
-        this.members = data;
-        this.dialogFormVisible = true;
-      });
+      this.dialogFormVisible = true;
     },
     addCancel() {
       this.userid = "";
