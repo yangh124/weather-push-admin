@@ -11,7 +11,7 @@ export function memberList(params) {
   return request({
     url: "/members",
     method: "get",
-    params,
+    params
   });
 }
 
