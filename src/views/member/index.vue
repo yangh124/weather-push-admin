@@ -118,8 +118,8 @@ export default {
         if (res.code == 200) {
           console.log(res);
           wx.agentConfig({
-            corpid: res.data.corpId, // 必填，企业微信的corpid，必须与当前登录的企业一致
-            agentid: parseInt(res.data.agentId), // 必填，企业微信的应用id （e.g. 1000247）
+            corpid: res.data.corpid, // 必填，企业微信的corpid，必须与当前登录的企业一致
+            agentid: parseInt(res.data.agentid), // 必填，企业微信的应用id （e.g. 1000247）
             timestamp: res.data.timestamp, // 必填，生成签名的时间戳
             nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
             signature: res.data.signature, // 必填，签名，见附录-JS-SDK使用权限签名算法
