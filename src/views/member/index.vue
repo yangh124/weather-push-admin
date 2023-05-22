@@ -117,7 +117,7 @@ export default {
     agentConfig() {
       agentConfig().then((res) => {
         if (res.code === 200) {
-          console.log(res)
+          // eslint-disable-next-line no-undef
           wx.agentConfig({
             corpid: res.data.corpid, // 必填，企业微信的corpid，必须与当前登录的企业一致
             agentid: parseInt(res.data.agentid), // 必填，企业微信的应用id （e.g. 1000247）
