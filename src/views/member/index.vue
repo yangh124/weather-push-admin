@@ -125,8 +125,14 @@ export default {
             jsApiList: ['selectExternalContact'], // 必填，传入需要使用的接口名称
             success: function(result) {
               console.log(result, '请求微信成功')
+              console.info('window.WWOpenData', window.WWOpenData)
+              // eslint-disable-next-line no-undef
+              console.info('WWOpenData', WWOpenData)
               // eslint-disable-next-line no-undef
               WWOpenData.bindAll(document.querySelectorAll('ww-open-data'))
+              console.info('window.WWOpenData', window.WWOpenData)
+              // eslint-disable-next-line no-undef
+              console.info('WWOpenData', WWOpenData)
               // 回调
             },
             fail: function(res) {
