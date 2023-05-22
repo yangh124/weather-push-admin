@@ -171,9 +171,7 @@ export default {
       this.tagid = tagId[0]
     },
     addMember() {
-      console.log('======start========')
       this.dialogFormVisible = true
-      console.log('=======end=======')
     },
     addCancel() {
       this.userid = ''
