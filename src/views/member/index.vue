@@ -26,7 +26,7 @@
             :visible.sync="dialogVisible"
             width="300px"
           >
-            <el-image style="width: 200px; height: 200px" :src="url" />
+            <el-image style="width: 200px; height: 200px" :src="url"/>
           </el-dialog>
           <el-button
             size="small"
@@ -39,7 +39,7 @@
           >添加
           </el-button>
           <el-dialog title="关联成员" :visible.sync="dialogFormVisible">
-            <ww-open-data type="userName" :openid="userId" />
+            <ww-open-data :type="type" :openid="openid"/>
             <div slot="footer" class="dialog-footer">
               <el-button @click="addCancel">取 消</el-button>
               <el-button type="primary" @click="addConfirm">确 定</el-button>
@@ -102,7 +102,8 @@ export default {
       members: [],
       userid: '',
       tagid: '',
-      userId: ''
+      userId: '',
+      type: 'userName'
     }
   },
   mounted() {
@@ -115,8 +116,7 @@ export default {
     agentConfig() {
       agentConfig().then((res) => {
         if (res.code === 200) {
-          // eslint-disable-next-line no-undef
-          wx.agentConfig({
+          window.wx.agentConfig({
             corpid: res.data.corpid, // 必填，企业微信的corpid，必须与当前登录的企业一致
             agentid: parseInt(res.data.agentid), // 必填，企业微信的应用id （e.g. 1000247）
             timestamp: res.data.timestamp, // 必填，生成签名的时间戳
@@ -124,16 +124,10 @@ export default {
             signature: res.data.signature, // 必填，签名，见附录-JS-SDK使用权限签名算法
             jsApiList: ['selectExternalContact'], // 必填，传入需要使用的接口名称
             success: function(result) {
-              console.log(result, '请求微信成功')
-              console.info('window.WWOpenData', window.WWOpenData)
-              // eslint-disable-next-line no-undef
-              console.info('WWOpenData', WWOpenData)
-              // eslint-disable-next-line no-undef
-              WWOpenData.bindAll(document.querySelectorAll('ww-open-data'))
-              console.info('window.WWOpenData', window.WWOpenData)
-              // eslint-disable-next-line no-undef
-              console.info('WWOpenData', WWOpenData)
               // 回调
+              console.log(result, '请求微信成功')
+              window.WWOpenData.bindAll(document.querySelectorAll('ww-open-data'))
+              console.log(window.openidList)
             },
             fail: function(res) {
               console.table(res)
