@@ -39,11 +39,11 @@
           >添加
           </el-button>
           <el-dialog title="关联成员" :visible.sync="dialogFormVisible">
-            <WWOpenData type="userName" :openid="userId" />
-            <!-- <div slot="footer" class="dialog-footer">
-        <el-button @click="addCancel">取 消</el-button>
-        <el-button type="primary" @click="addConfirm">确 定</el-button>
-      </div> -->
+            <ww-open-data type="userName" :openid="userId" />
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="addCancel">取 消</el-button>
+              <el-button type="primary" @click="addConfirm">确 定</el-button>
+            </div>
           </el-dialog>
         </div>
       </el-header>
@@ -85,10 +85,8 @@
 <script>
 import { agentConfig, getJoinQrCode, memberList } from '@/api/member'
 import { addTagMembers, delTagMembers, getAll } from '@/api/tag'
-import WWOpenData from '@/components/WxOpendata/index.vue'
 
 export default {
-  components: { WWOpenData },
   data() {
     return {
       dialogVisible: false,
@@ -127,6 +125,8 @@ export default {
             jsApiList: ['selectExternalContact'], // 必填，传入需要使用的接口名称
             success: function(result) {
               console.log(result, '请求微信成功')
+              // eslint-disable-next-line no-undef
+              WWOpenData.bindAll(document.querySelectorAll('ww-open-data'))
               // 回调
             },
             fail: function(res) {
