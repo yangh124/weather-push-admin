@@ -3,17 +3,17 @@
 </template>
 <script>
 export default {
-  name: "WWOpenData",
-  props: ["type", "openid"],
+  name: 'WWOpenData',
+  props: ['type', 'openid'],
   watch: {
     openid(item) {
       this.$nextTick(() => {
-        window.WWOpenData.bind(this.$el);
-      });
-    },
+        window.WWOpenData.bind(this.$el)
+      })
+    }
   },
   mounted() {
-    window.WWOpenData.bind(this.$el);
-  },
-};
+    window.WWOpenData.bind(this.$el)
+  }
+}
 </script>
