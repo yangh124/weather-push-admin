@@ -102,7 +102,7 @@ export default {
       members: [],
       userid: '',
       tagid: '',
-      userId: '',
+      userId: 'YangHao',
       type: 'userName'
     }
   },
