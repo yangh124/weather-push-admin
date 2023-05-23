@@ -113,7 +113,7 @@ export default {
     this.tagList()
   },
   methods: {
-    agentConfig() {
+    agentConfig: function() {
       agentConfig().then((res) => {
         if (res.code === 200) {
           window.wx.agentConfig({
@@ -126,8 +126,11 @@ export default {
             success: function(result) {
               // 回调
               console.log(result, '请求微信成功')
-              window.WWOpenData.bindAll(document.querySelectorAll('ww-open-data'))
-              console.log(window.openidList)
+              const nodeList = document.querySelectorAll('ww-open-data')
+              console.log(nodeList)
+              console.log(window.WWOpenData)
+              window.WWOpenData.bindAll(nodeList)
+              console.log(window.WWOpenData)
             },
             fail: function(res) {
               console.table(res)
