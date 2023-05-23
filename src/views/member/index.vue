@@ -26,7 +26,7 @@
             :visible.sync="dialogVisible"
             width="300px"
           >
-            <el-image style="width: 200px; height: 200px" :src="url"/>
+            <el-image style="width: 200px; height: 200px" :src="url" />
           </el-dialog>
           <el-button
             size="small"
@@ -39,7 +39,7 @@
           >添加
           </el-button>
           <el-dialog title="关联成员" :visible.sync="dialogFormVisible">
-            <ww-open-data :type="type" :openid="openid"/>
+            <ww-open-data :type="type" :openid="userId" />
             <div slot="footer" class="dialog-footer">
               <el-button @click="addCancel">取 消</el-button>
               <el-button type="primary" @click="addConfirm">确 定</el-button>
