@@ -15,6 +15,13 @@ export function memberList(params) {
   })
 }
 
+export function memberIdList() {
+  return request({
+    url: '/members/ids',
+    method: 'get'
+  })
+}
+
 export function agentConfig() {
   return request({
     url: '/members/agentConfig',

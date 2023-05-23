@@ -39,7 +39,19 @@
           >添加
           </el-button>
           <el-dialog title="关联成员" :visible.sync="dialogFormVisible">
-            <ww-open-data :type="type" :openid="userId" />
+            <el-select v-model="userId" placeholder="请选择">
+              <el-option
+                v-for="item in userIdList"
+                :key="item"
+                :value="item"
+              >
+                <span slot-scope="{ node }" class="custom-tree-node">
+                  <span>
+                    <ww-open-data type="userName" :openid="node" />
+                  </span>
+                </span>
+              </el-option>
+            </el-select>
             <div slot="footer" class="dialog-footer">
               <el-button @click="addCancel">取 消</el-button>
               <el-button type="primary" @click="addConfirm">确 定</el-button>
@@ -83,7 +95,7 @@
   </el-container>
 </template>
 <script>
-import { agentConfig, getJoinQrCode, memberList } from '@/api/member'
+import { agentConfig, getJoinQrCode, memberList, memberIdList } from '@/api/member'
 import { addTagMembers, delTagMembers, getAll } from '@/api/tag'
 
 export default {
@@ -99,11 +111,10 @@ export default {
         tagName: ''
       },
       dialogFormVisible: false,
-      members: [],
       userid: '',
       tagid: '',
-      userId: 'YangHao',
-      type: 'userName'
+      userIdList: [],
+      userId: ''
     }
   },
   mounted() {
@@ -169,12 +180,13 @@ export default {
       this.tagid = tagId[0]
     },
     addMember() {
+      memberIdList().then((res) => {
+        console.log(res)
+        this.userIdList = res.data
+        const nodeList = document.querySelectorAll('ww-open-data')
+        window.WWOpenData.bindAll(nodeList)
+      })
       this.dialogFormVisible = true
-      const nodeList = document.querySelectorAll('ww-open-data')
-      console.log(nodeList)
-      console.log(window.WWOpenData)
-      window.WWOpenData.bindAll(nodeList)
-      console.log(window.WWOpenData)
     },
     addCancel() {
       this.userid = ''
