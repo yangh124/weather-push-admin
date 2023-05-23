@@ -169,12 +169,12 @@ export default {
       this.tagid = tagId[0]
     },
     addMember() {
+      this.dialogFormVisible = true
       const nodeList = document.querySelectorAll('ww-open-data')
       console.log(nodeList)
       console.log(window.WWOpenData)
       window.WWOpenData.bindAll(nodeList)
       console.log(window.WWOpenData)
-      this.dialogFormVisible = true
     },
     addCancel() {
       this.userid = ''
