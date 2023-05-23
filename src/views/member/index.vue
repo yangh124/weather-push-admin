@@ -126,11 +126,6 @@ export default {
             success: function(result) {
               // 回调
               console.log(result, '请求微信成功')
-              const nodeList = document.querySelectorAll('ww-open-data')
-              console.log(nodeList)
-              console.log(window.WWOpenData)
-              window.WWOpenData.bindAll(nodeList)
-              console.log(window.WWOpenData)
             },
             fail: function(res) {
               console.table(res)
@@ -174,6 +169,11 @@ export default {
       this.tagid = tagId[0]
     },
     addMember() {
+      const nodeList = document.querySelectorAll('ww-open-data')
+      console.log(nodeList)
+      console.log(window.WWOpenData)
+      window.WWOpenData.bindAll(nodeList)
+      console.log(window.WWOpenData)
       this.dialogFormVisible = true
     },
     addCancel() {
