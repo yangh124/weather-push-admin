@@ -45,10 +45,8 @@
                 :key="item"
                 :value="item"
               >
-                <span slot-scope="{ node }" class="custom-tree-node">
-                  <span>
-                    <ww-open-data type="userName" :openid="node" />
-                  </span>
+                <span>
+                  <ww-open-data type="userName" :openid="item" />
                 </span>
               </el-option>
             </el-select>
