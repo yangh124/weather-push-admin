@@ -1,15 +1,11 @@
 <template>
   <el-container>
     <el-aside width="200px" style="margin-top: 80px">
-      <el-tree
-        ref="tree"
-        :data="data"
-        node-key="tagId"
-        show-checkbox
-        empty-text="无数据"
-        @check="handleNodeClick()"
-        @node-click="handleNodeClick()"
-      />
+      <el-tabs v-model="tabIndex" tab-position="left" @tab-click="handleTabClick()">
+        <el-tab-pane v-for="item in tags" :key="item.tagId" style="margin-top: 10px" :label="item.tagName" border>
+          {{ item.tagName }}
+        </el-tab-pane>
+      </el-tabs>
     </el-aside>
     <el-container>
       <el-header>
@@ -103,7 +99,7 @@ export default {
       url: '',
       list: null,
       listLoading: true,
-      data: [],
+      tags: [],
       addLoading: false,
       form: {
         tagName: ''
@@ -112,7 +108,8 @@ export default {
       userid: '',
       tagid: '',
       userIdList: [],
-      userId: ''
+      userId: '',
+      tabIndex: ''
     }
   },
   mounted() {
@@ -122,7 +119,7 @@ export default {
     this.tagList()
   },
   methods: {
-    agentConfig: function() {
+    agentConfig() {
       agentConfig().then((res) => {
         if (res.code === 200) {
           window.wx.agentConfig({
@@ -137,11 +134,15 @@ export default {
               console.log(result, '请求微信成功')
             },
             fail: function(res) {
-              console.table(res)
+              console.error(res)
             }
           })
         }
       })
+    },
+    handleTabClick() {
+      const tabIndex = this.tabIndex
+      this.memberList(this.tags[tabIndex].tagId)
     },
     qrCode() {
       getJoinQrCode().then((res) => {
@@ -152,34 +153,24 @@ export default {
     tagList() {
       getAll().then((res) => {
         const dataList = res.data
-        this.data = []
+        this.tags = []
         if (dataList != null && dataList.length > 0) {
           for (const data of dataList) {
-            this.data.push({ tagId: data.tagId, label: data.tagName })
+            this.tags.push({ tagId: data.tagId, tagName: data.tagName })
           }
-          this.handleNodeClick(dataList[0])
+          this.memberList(dataList[0].tagId)
         }
       })
     },
-    memberList() {
+    memberList(tagId) {
       this.listLoading = true
-      memberList({ id: this.tagid }).then((res) => {
+      memberList({ id: tagId }).then((res) => {
         this.list = res.data
         this.listLoading = false
       })
     },
-    handleNodeClick(data) {
-      const tagId = data.tagId
-      this.setCheckedKeys([tagId])
-      this.memberList()
-    },
-    setCheckedKeys(tagId) {
-      this.$refs.tree.setCheckedKeys(tagId)
-      this.tagid = tagId[0]
-    },
     addMember() {
       memberIdList().then((res) => {
-        console.log(res)
         this.userIdList = res.data
         const nodeList = document.querySelectorAll('ww-open-data')
         window.WWOpenData.bindAll(nodeList)
