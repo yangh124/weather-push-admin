@@ -2,7 +2,7 @@
   <el-container>
     <el-aside width="200px" style="margin-top: 80px">
       <el-tabs v-model="tabIndex" tab-position="left" @tab-click="handleTabClick()">
-        <el-tab-pane v-for="item in tags" :key="item.tagId" style="margin-top: 10px" :label="item.tagName" border>
+        <el-tab-pane v-for="item in tags" :key="item.id" style="margin-top: 10px" :label="item.tagName" border>
           {{ item.tagName }}
         </el-tab-pane>
       </el-tabs>
@@ -158,7 +158,7 @@ export default {
           for (const data of dataList) {
             this.tags.push({ tagId: data.id, tagName: data.tagName })
           }
-          this.memberList(dataList[0].tagId)
+          this.memberList(this.tags[0].tagId)
         }
       })
     },
@@ -189,7 +189,7 @@ export default {
           type: 'success',
           message: res.message
         })
-        this.memberList()
+        this.memberList(this.tagid)
         this.addLoading = false
         this.dialogFormVisible = false
       })
@@ -207,7 +207,7 @@ export default {
                 type: 'success',
                 message: res.message
               })
-              this.memberList()
+              this.memberList(this.tagid)
             }
           )
         })
