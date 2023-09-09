@@ -156,7 +156,7 @@ export default {
         this.tags = []
         if (dataList != null && dataList.length > 0) {
           for (const data of dataList) {
-            this.tags.push({ tagId: data.tagId, tagName: data.tagName })
+            this.tags.push({ tagId: data.id, tagName: data.tagName })
           }
           this.memberList(dataList[0].tagId)
         }
