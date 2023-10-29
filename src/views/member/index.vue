@@ -105,8 +105,7 @@ export default {
         tagName: ''
       },
       dialogFormVisible: false,
-      userid: '',
-      tagid: '',
+      tagId: '',
       userIdList: [],
       userId: '',
       tabIndex: ''
@@ -142,7 +141,9 @@ export default {
     },
     handleTabClick() {
       const tabIndex = this.tabIndex
-      this.memberList(this.tags[tabIndex].tagId)
+      const curTagId = this.tags[tabIndex].tagId
+      this.memberList(curTagId)
+      this.tagId = curTagId
     },
     qrCode() {
       getJoinQrCode().then((res) => {
@@ -178,12 +179,12 @@ export default {
       this.dialogFormVisible = true
     },
     addCancel() {
-      this.userid = ''
+      this.userId = ''
       this.dialogFormVisible = false
     },
     addConfirm() {
       this.addLoading = true
-      const data = { tagid: this.tagid, userlist: [this.userid] }
+      const data = { tagid: this.tagId, userlist: [this.userId] }
       addTagMembers(data).then((res) => {
         this.$message({
           type: 'success',
@@ -194,14 +195,14 @@ export default {
         this.dialogFormVisible = false
       })
     },
-    handleDelete(userid) {
+    handleDelete(userId) {
       this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(() => {
-          delTagMembers({ tagid: this.tagid, userlist: [userid] }).then(
+          delTagMembers({ tagid: this.tagid, userlist: [userId] }).then(
             (res) => {
               this.$message({
                 type: 'success',
