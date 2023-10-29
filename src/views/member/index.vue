@@ -159,7 +159,9 @@ export default {
           for (const data of dataList) {
             this.tags.push({ tagId: data.id, tagName: data.tagName })
           }
-          this.memberList(this.tags[0].tagId)
+          const curTagId = this.tags[0].tagId
+          this.memberList(curTagId)
+          this.tagId = curTagId
         }
       })
     },
