@@ -2,45 +2,45 @@ import request from '@/utils/request'
 
 export function getPage(params) {
   return request({
-    url: '/tags/page',
+    url: '/location/page',
     method: 'get',
     params
   })
 }
 
-export function addTag(data) {
+export function addLocation(data) {
   return request({
-    url: '/tags',
+    url: '/location',
     method: 'post',
     data
   })
 }
 
-export function delTag(id) {
+export function delLocation(id) {
   return request({
-    url: '/tags/' + id,
+    url: '/location/' + id,
     method: 'delete'
   })
 }
 
 export function getAll() {
   return request({
-    url: '/tags',
+    url: '/location',
     method: 'get'
   })
 }
 
-export function addTagMembers(data) {
+export function addLocationMembers(data) {
   return request({
-    url: '/tags/members',
+    url: '/location/members',
     method: 'post',
     data
   })
 }
 
-export function delTagMembers(data) {
+export function delLocationMembers(data) {
   return request({
-    url: '/tags/members',
+    url: '/location/members',
     method: 'delete',
     data
   })

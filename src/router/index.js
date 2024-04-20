@@ -65,13 +65,13 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/tag',
+    path: '/location',
     component: Layout,
-    redirect: '/tag',
+    redirect: '/location',
     children: [{
-      path: 'tag',
+      path: 'location',
       name: '地区管理',
-      component: () => import('@/views/tag/index'),
+      component: () => import('@/views/location/index'),
       meta: { title: '地区管理', icon: 'el-icon-location-information' }
     }]
   },

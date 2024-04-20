@@ -2,8 +2,8 @@
   <el-container>
     <el-aside width="200px" style="margin-top: 80px">
       <el-tabs v-model="tabIndex" tab-position="left" @tab-click="handleTabClick()">
-        <el-tab-pane v-for="item in tags" :key="item.id" style="margin-top: 10px" :label="item.tagName" border>
-          {{ item.tagName }}
+        <el-tab-pane v-for="item in locations" :key="item.id" style="margin-top: 10px" :label="item.locationName" border>
+          {{ item.locationName }}
         </el-tab-pane>
       </el-tabs>
     </el-aside>
@@ -90,7 +90,7 @@
 </template>
 <script>
 import { agentConfig, getJoinQrCode, memberList, memberIdList } from '@/api/member'
-import { addTagMembers, delTagMembers, getAll } from '@/api/tag'
+import { addLocationMembers, delLocationMembers, getAll } from '@/api/location'
 
 export default {
   data() {
@@ -99,12 +99,13 @@ export default {
       url: '',
       list: null,
       listLoading: true,
-      tags: [],
+      locations: [],
       addLoading: false,
       form: {
-        tagName: ''
+        locationName: ''
       },
       dialogFormVisible: false,
+      locationId: '',
       tagId: '',
       userIdList: [],
       userId: '',
@@ -115,7 +116,7 @@ export default {
     this.agentConfig()
   },
   created() {
-    this.tagList()
+    this.locationList()
   },
   methods: {
     agentConfig() {
@@ -141,7 +142,7 @@ export default {
     },
     handleTabClick() {
       const tabIndex = this.tabIndex
-      const curTagId = this.tags[tabIndex].tagId
+      const curTagId = this.locations[tabIndex].tagId
       this.memberList(curTagId)
       this.tagId = curTagId
     },
@@ -151,15 +152,15 @@ export default {
         this.dialogVisible = true
       })
     },
-    tagList() {
+    locationList() {
       getAll().then((res) => {
         const dataList = res.data
-        this.tags = []
+        this.locations = []
         if (dataList != null && dataList.length > 0) {
           for (const data of dataList) {
-            this.tags.push({ tagId: data.id, tagName: data.tagName })
+            this.locations.push({ locationId: data.id, locationName: data.locationName, tagId: data.tagId })
           }
-          const curTagId = this.tags[0].tagId
+          const curTagId = this.locations[0].tagId
           this.memberList(curTagId)
           this.tagId = curTagId
         }
@@ -187,12 +188,12 @@ export default {
     addConfirm() {
       this.addLoading = true
       const data = { tagid: this.tagId, userlist: [this.userId] }
-      addTagMembers(data).then((res) => {
+      addLocationMembers(data).then((res) => {
         this.$message({
           type: 'success',
           message: res.message
         })
-        this.memberList(this.tagid)
+        this.memberList(this.tagId)
         this.addLoading = false
         this.dialogFormVisible = false
       })
@@ -204,13 +205,13 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          delTagMembers({ tagid: this.tagid, userlist: [userId] }).then(
+          delLocationMembers({ tagid: this.tagId, userlist: [userId] }).then(
             (res) => {
               this.$message({
                 type: 'success',
                 message: res.message
               })
-              this.memberList(this.tagid)
+              this.memberList(this.tagId)
             }
           )
         })

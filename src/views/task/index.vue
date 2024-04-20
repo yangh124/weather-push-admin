@@ -47,12 +47,12 @@
         <el-table-column label="地区" width="200" align="center">
           <template slot-scope="scope">
             <el-tag
-              v-for="tag in scope.row.tagList"
-              :key="tag.id"
+              v-for="location in scope.row.locationList"
+              :key="location.id"
               size="mini"
               effect="dark"
             >
-              {{ tag.tagName }}
+              {{ location.locationName }}
             </el-tag>
           </template>
         </el-table-column>
@@ -115,11 +115,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="地区名称">
-          <el-select v-model="form.tagIds" multiple placeholder="请选择">
+          <el-select v-model="form.locationIds" multiple placeholder="请选择">
             <el-option
-              v-for="item in tags"
+              v-for="item in locations"
               :key="item.id"
-              :label="item.tagName"
+              :label="item.locationName"
               :value="item.id"
             />
           </el-select>
@@ -146,11 +146,11 @@
           </el-select>
         </el-form-item>
         <el-form-item label="地区名称">
-          <el-select v-model="editForm.tagIds" multiple placeholder="请选择">
+          <el-select v-model="editForm.locationIds" multiple placeholder="请选择">
             <el-option
-              v-for="item in tags"
+              v-for="item in locations"
               :key="item.id"
-              :label="item.tagName"
+              :label="item.locationName"
               :value="item.id"
             />
           </el-select>
@@ -173,7 +173,7 @@
 
 <script>
 import { getPage, delTask, addTask, updateTask } from '@/api/task'
-import { getAll } from '@/api/tag'
+import { getAll } from '@/api/location'
 export default {
   data() {
     return {
@@ -191,17 +191,17 @@ export default {
         taskName: '',
         cronExp: '',
         taskDesc: '',
-        tagIds: []
+        locationIds: []
       },
       dialogFormVisible: false,
-      tags: [],
+      locations: [],
       dialogEditVisible: false,
       editForm: {
         id: '',
         status: '',
         cronExp: '',
         taskDesc: '',
-        tagIds: []
+        locationIds: []
       }
     }
   },
@@ -213,7 +213,7 @@ export default {
       this.searchLoading = true
       this.listLoading = true
       this.resetLoading = true
-      getPage({ tagName: this.tagName, currentPage: this.currentPage, pageSize: this.pageSize }).then(response => {
+      getPage({ locationName: this.locationName, currentPage: this.currentPage, pageSize: this.pageSize }).then(response => {
         const data = response.data
         this.list = data.records
         this.currentPage = data.current
@@ -258,7 +258,7 @@ export default {
       this.fetchData()
     },
     reset() {
-      this.tagName = ''
+      this.locationName = ''
       this.fetchData()
     },
     addCancel() {
@@ -266,7 +266,7 @@ export default {
         taskName: '',
         cronExp: '',
         taskDesc: '',
-        tagIds: []
+        locationIds: []
       }
       this.addLoading = false
       this.dialogFormVisible = false
@@ -290,7 +290,7 @@ export default {
     },
     dialogOpen() {
       getAll().then(res => {
-        this.tags = res.data
+        this.locations = res.data
       })
     },
     editCancel() {
@@ -299,24 +299,24 @@ export default {
         status: '',
         cronExp: '',
         taskDesc: '',
-        tagIds: []
+        locationIds: []
       }
       this.dialogEditVisible = false
     },
     handleEdit(data) {
       getAll().then(res => {
-        this.tags = res.data
+        this.locations = res.data
       })
-      const tagIds = []
-      for (const tag of data.tagList) {
-        tagIds.push(tag.id)
+      const locationIds = []
+      for (const location of data.locationList) {
+        locationIds.push(location.id)
       }
       this.editForm = {
         id: data.id,
         status: data.status,
         cronExp: data.cronExp,
         taskDesc: data.taskDesc,
-        tagIds: tagIds
+        locationIds: locationIds
       }
       this.dialogEditVisible = true
     },
@@ -334,7 +334,7 @@ export default {
           status: '',
           cronExp: '',
           taskDesc: '',
-          tagIds: []
+          locationIds: []
         }
         this.reset()
       })

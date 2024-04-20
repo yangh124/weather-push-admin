@@ -5,7 +5,7 @@
       <el-row>
         地区名称：
         <el-input
-          v-model="tagName"
+          v-model="locationName"
           size="small"
           style="width: 200px"
           placeholder="请输入内容"
@@ -31,7 +31,7 @@
         </el-table-column>
         <el-table-column label="地区名称" width="150" align="center">
           <template slot-scope="scope">
-            {{ scope.row.tagName }}
+            {{ scope.row.locationName }}
           </template>
         </el-table-column>
         <el-table-column label="地区编码" width="200" align="center">
@@ -74,7 +74,7 @@
     <el-dialog title="添加地区" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="地区名称" label-width="5">
-          <el-input v-model="form.tagName" autocomplete="off" />
+          <el-input v-model="form.locationName" autocomplete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { getPage, delTag, addTag } from '@/api/tag'
+import { getPage, delLocation, addLocation } from '@/api/location'
 export default {
   data() {
     return {
@@ -96,12 +96,12 @@ export default {
       currentPage: 1,
       pageSize: 10,
       pageCount: 1,
-      tagName: '',
+      locationName: '',
       searchLoading: true,
       resetLoading: true,
       addLoading: false,
       form: {
-        tagName: ''
+        locationName: ''
       },
       dialogFormVisible: false
     }
@@ -114,7 +114,7 @@ export default {
       this.searchLoading = true
       this.listLoading = true
       this.resetLoading = true
-      getPage({ tagName: this.tagName, currentPage: this.currentPage, pageSize: this.pageSize }).then(response => {
+      getPage({ locationName: this.locationName, currentPage: this.currentPage, pageSize: this.pageSize }).then(response => {
         const data = response.data
         this.list = data.records
         this.currentPage = data.current
@@ -141,7 +141,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        delTag(id).then(res => {
+        delLocation(id).then(res => {
           this.$message({
             type: 'success',
             message: res.message
@@ -162,17 +162,17 @@ export default {
       this.fetchData()
     },
     reset() {
-      this.tagName = ''
-      this.form.tagName = ''
+      this.locationName = ''
+      this.form.locationName = ''
       this.fetchData()
     },
     addCancel() {
-      this.form.tagName = ''
+      this.form.locationName = ''
       this.dialogFormVisible = false
     },
     addConfirm() {
       this.addLoading = true
-      addTag(this.form).then(res => {
+      addLocation(this.form).then(res => {
         this.$message({
           type: 'success',
           message: res.message
